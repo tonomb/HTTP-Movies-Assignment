@@ -14,7 +14,7 @@ function UpdateMovie(props){
     const history = useHistory()
     const {id} = useParams()
     const [formValues, setFormValues ]=useState(initialFormValues)
-    const {setMovieList, movieList } = props
+    const {setUpdatedMovie } = props
 
 
     useEffect(()=>{
@@ -40,11 +40,8 @@ function UpdateMovie(props){
         e.preventDefault()
         axios.put(`http://localhost:5000/api/movies/${id}`, formValues)
             .then(res =>{
-                //Refactor this,  works but not ideal, updated movie goes to the bottom of the list 
-                let newMoviesList = [...movieList]
-                newMoviesList = newMoviesList.filter( movie => movie.id !== formValues.id)
-                newMoviesList.push(formValues)
-                setMovieList(newMoviesList)
+                console.log('Updated Movie');
+                setUpdatedMovie(true);
                history.push(`/movies/${id}`)
             })
             .catch(err =>{
